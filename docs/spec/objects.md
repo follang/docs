@@ -244,7 +244,7 @@ typ geo: std = {
     fun perim(): flt[64];
 };
 
-typ rect: rec[][geo] = {                                             // this type makes a contract to use the geometry standard
+typ rect(geo): rec[] = {                                             // this type makes a contract to use the geometry standard
     width: int[64];
     heigh: int[64];
 }
@@ -272,14 +272,14 @@ typ geo: std = {
     fun perim(): flt[64];
 };
 
-typ rect: rec[][geo] = {                                            // this type makes a contract to use the geometry standard
+typ rect(geo): rec[] = {                                            // this type makes a contract to use the geometry standard
     width: int[64]; 
     heigh: int[64]; 
 }
 fun (rect)area(): flt[64] = { result = self.width + self.heigh }
 fun (rect)perim(): flt[64] = { result = 2 * self.width + 2 * self.heigh }
 
-typ circle: rec[][geo] = {                                          // another type makes a contract to use the geometry standard
+typ circle(geo): rec[] = {                                          // another type makes a contract to use the geometry standard
     radius: int[64]; 
 }
 fun (circle)area(): flt[64] = { result = math::const.pi * self.radius ** 2 }

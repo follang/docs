@@ -60,7 +60,7 @@ sections:
   - bgcolor: '#b380ff'
     color: '#000'
     type: card
-    description: "FOL is a general-purpose, systems programming language designed for robustness, efficiency, portability, expressiveness and most importantly elegance. Heavily inspired (and shamelessly copying) from languages: zig, nim, rust, c++, go, julia (in this order), hence the name - FOL (Frankenstein’s Original Language). In Albanian language “fol” means “speak” "
+    description: "FOL is a general-purpose, systems programming language designed for robustness, efficiency, portability, expressiveness and most importantly elegance. Heavily inspired (and shamelessly copying) from languages: rust, go, zig, nim, c++, julia (in this order), hence the name - FOL (Frankenstein’s Original Language). In Albanian language “fol” means “speak” "
     header: 
       title: The language
       hlcolor: "#875fd7"

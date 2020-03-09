@@ -36,8 +36,8 @@ fun[] calc(el1, el2, el3: int[64]; changed: bol = true): int[64] = { result = el
 In subprogram signatures, you must declare the type of each parameter. Requiring type annotations in subprogram definitions is obligatory, which means the compiler almost never needs you to use them elsewhere in the code to figure out what you mean. Subprogram can parameter overloaded too. It makes possible to create multiple subprogram of the same name with different implementations. Calls to an overloaded subprogram will run a specific implementation of that subprogram appropriate to the context of the call, allowing one subprogram call to perform different tasks depending on context:
 
 ```
-fun retBigger(el2, el2: int): int = { return el1 | result > el2 | el2 }
-fun retBigger(el2, el2: flt): flt = { return el1 | result > el2 | el2 }
+fun retBigger(el2, el2: int): int = { return el1 | this > el2 | el2 }
+fun retBigger(el2, el2: flt): flt = { return el1 | this > el2 | el2 }
 
 pro main: int = {
     retBigger(4, 5);                                        // calling a subprogram with intigers
@@ -101,7 +101,7 @@ pro main: int = {
 ### Default arguments
 Formal parameters can have default values too. A default value is used if no actual parameter is passed to the formal parameter. The default parameter is assigned directly after the formal parameter declaration. The compiler converts the list of arguments to an array implicitly. The number of parameters needs to be known at compile time. 
 ```
-fun[] calc(el1, el2, el3: rise: bool = true): int = { result[0] = el1 + el2 * el3 | rise | el1 + el2;  }
+fun[] calc(el1, el2, el3: rise: bool = true): int = { result[0] = el1 + el2 * el3 | this | el1 + el2;  }
 
 pro main: int = {
     calc(3,3,2);                                            // this returns 6, last positional parameter is not passed but 
@@ -113,7 +113,7 @@ pro main: int = {
 ### Variadic subprograms
 The use of `...` as the type of argument at the end of the argument list declares the subprogram as variadic. This must appear as the last argument of the subprogram. When variadic subprograms are used, the default arguments can not be used at the same time.
 ```
-fun[] calc(rise: bool; ints: ... int): int = { result[0] = ints[0] + ints[1] + ints[2] * ints[3] | rise | ints[0] + ints[1];  }
+fun[] calc(rise: bool; ints: ... int): int = { result[0] = ints[0] + ints[1] + ints[2] * ints[3] | this | ints[0] + ints[1];  }
 
 pro main: int = {
     calc(true,3,3,3,2);                                     // this returns 81, four parmeters are passed as variadic arguments
@@ -191,7 +191,7 @@ pro main(): int = {
         if ( check(aFile) ) {
             report "File could not be opened" + file                        // report will not break the program, but will return the error here, and the funciton will stop
         } else {
-            return file | stringify($) | return $                           // this will be executed only if file was oopened without error
+            return file | stringify(this) | return $                        // this will be executed only if file was oopened without error
         }
     }
 }
@@ -388,13 +388,30 @@ fun[] (a, b: int) = {                                                   //define
 
 
 ### Closures
-Functions can appear at the top level in a module as well as inside other scopes, in which case they are called nested functions. A nested function can access local variables from its enclosing scope and if it does so it becomes a closure. Any captured variables are stored in a hidden additional argument to the closure (its environment) and they are accessed by reference by both the closure and its enclosing scope (i.e. any modifications made to them are visible in both places). The closure environment may be allocated on the heap or on the stack if the compiler determines that this would be safe. To capture variables, we use the `[]` just before the type declaration, [the same as channels](/docs/spec/concurrency/#channels):
+Functions can appear at the top level in a module as well as inside other scopes, in which case they are called nested functions. A nested function can access local variables from its enclosing scope and if it does so it becomes a closure. Any captured variables are stored in a hidden additional argument to the closure (its environment) and they are accessed by reference by both the closure and its enclosing scope (i.e. any modifications made to them are visible in both places). The closure environment may be allocated on the heap or on the stack if the compiler determines that this would be safe. 
+
+There are two types of closures:
+- anonymous
+- named
+
+Anonymus closures automatically capture variables, while named closures need to be specified what to capture. For capture we use the `[]` just before the type declaration.
 ```
 fun[] add(n: int): int = {
-    fun added(x: int)[n]: int = {                                       // we capture 
-        return x + n                                                    // variable $n can be accesed from within the nested function
+    fun added(x: int)[n]: int = {                                       // we make a named closure 
+        return x + n                                                    // variable $n can be accesed because we have captured ti
     }    
     return adder()
+}
+
+var added = add(1)                                                      // assigning closure to variable
+added(5)                                                                // this returns 6
+```
+
+```
+fun[] add(n: int): int = {
+    return fun(x: int): int = {                                         // we make a anonymous closure 
+        return x + n                                                    // variable $n can be accesed from within the nested function
+    }
 }
 ```
 
@@ -414,8 +431,8 @@ f(x)(y)(z)
 However, the more iportant thing is taht, currying is a way of constructing functions that allows partial application of a function’s arguments. What this means is that you can pass all of the arguments a function is expecting and get the result, or pass a subset of those arguments and get a function back that’s waiting for the rest of the arguments. 
  ```
 fun calc(x): int = {
-    return fun adder1(y): int = {
-        return fun adder2(z): int = {
+    return fun(y): int = {
+        return fun (z): int = {
             return x + y + z
         } 
     }
@@ -423,6 +440,8 @@ fun calc(x): int = {
 
 var value: int = calc(5)(6)                                             // this is okay, the function is still finished
 var another int = value(8)                                              // this completes the function
+
+var allIn: int = calc(5)(6)(8)                                          // or this as alternative
  ```
 
 ### Higer-order functions
