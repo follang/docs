@@ -266,7 +266,7 @@ pro[] main: int =  {
     .echo(aString)                                          // this now prints: "hello world!", 
 
                                         //case2
-    @var[mut] aString: str = "hello";                       // a string varibale $bString is declared (in stack with '@')
+    @var[mut] aString: str = "hello";                       // a string varibale $bString is declared (in heap with '@')
     modifyValue(aString);                                   // the value is lended to the procedure
     .echo(aString)                                          // this now prints: "hello world!", 
 }

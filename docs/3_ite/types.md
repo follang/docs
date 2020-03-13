@@ -155,10 +155,11 @@ aMap.add({ "IT", 55 })
 The comparison operators `==` and `!=` must be fully defined for operands of the key type; thus the key type must not be a function, map, or sequence.
 <h5 style="color:red; !important;">Maps are a growable containers too, thus if not allocated in heap but in stack, the size will be defined automatically in compile time and will be changet to static containers</h5>
 
-### Any
+### Vecotors
 ```
-any[]
+vec[]
 ```
+
 ### Matrix
 Matrixes are of type SIMD (single instruction, multiple data )
 ```
@@ -167,7 +168,7 @@ mat[sizex,sizey]
 mat[sizex,sizey,sizez]
 ```
 
-## Complex
+## Specific
 there are two complex types:
 ```
 num[arch,64,128]
@@ -182,6 +183,25 @@ Numbers are complex too and are made of intiger part, sign part, and float part,
 Strings are a complex type that are made of array of chars with null terminator '\0', and by default is utf8 encoded:
 
 - `str` is similar to `set[seq[char[utf8]],'\0']`
+
+
+## Complex
+
+### Optional
+Either are empty or have a value
+```
+opt[]
+```
+
+### Multiple
+```
+mul[]
+```
+
+### Any
+```
+any[]
+```
 
 ## Special
 ```

@@ -6,7 +6,7 @@ weight: 60
 
 A type declaration binds an identifier, the type name, to a type. Type declarations come in two forms: 
 - alias declarations and 
-- type definitions (objects): records, enums, units and classes. 
+- type definitions: records, lists, enums, and classes. 
 
 
 ## Alias declaration
@@ -20,6 +20,12 @@ So now the in the code, instead of writing `arr[int, 5]` we could use `I5`:
 ```
 ~var[pub] fiveIntigers: I5 = { 0, 1, 2, 3, 4, 5 }
 ```
+Another example is creating a `rgb` type that can have numbers only form 0 to 255:
+```
+typ rgb: int[8][.range(0 ... 255)] ;                  // we create a type that holds only number from 0 to 255
+typ rgbSet: set[rgb, rgb, rgb];                       // then we create a type holding the `rgb` type
+```
+
 Alias declaration are created because they can simplify using them multiple times, their identifier (their name) may be expressive in other contexts, and–most importantly–so that you can define (attach) methods to it (you can't attach methods to built-in types, nor to anonymous types or types defined in other packages).
 
 Attaching methods is of outmost importance, because even though instead of attaching methods you could just as easily create and use functions that accept the "original" type as parameter, only types with methods can implement standards `std[]` that list/enforce those methods, and you can't attach methods to certain types unless you create a new type derived from them.
@@ -137,21 +143,21 @@ This makes possible to enforce some fields (empty ones), and leave the defaults 
 
 ```
 
-### Structs
+### Lists
 
 <h5 style="color: red; !important;">
-Compared to records, structs cant have neither named values, neither default values
+Compared to records, lists cant have neither named values, neither default values
 </h5>
 
-Structs are simplified version of records. The are identified with `stc[]` keyword. Structs have the added meaning the record name provides but don’t have names associated with their fields; rather, they just have the types of the fields. Structs are useful when you want to give a `set[]` a name and make the tuple be a different type from other sets, and naming each field as in a regular record would be verbose or redundant.
+Lists are simplified version of records. The are identified with `lst[]` keyword. Lists have the added meaning the record name provides but don’t have names associated with their fields; rather, they just have the types of the fields. Lists are useful when you want to give a `set[]` a name and make it be a different type from other sets, and naming each field as in a regular record would be verbose or redundant.
 
 ```
-typ regStc: stc = {
+typ regStc: lst = {
     int[8],
     str,
 }
 ```
-And the difference between a struct and aliased type to set is that, in a struct you can restrict the values (with ranges) assigned to each field:
+And the difference between a list and aliased type to set is that, in a list you can restrict the values (with ranges) assigned to each field:
 ```
 typ rgbSet: set[int[8], int[8], int[8]];
 
@@ -170,31 +176,45 @@ typ rgbSet: set[rgb, rgb, rgb];                       // then we create a type h
 
 ### Enums
 
-Is an enumerated type (also called enumeration, `enm`) is a data type consisting of a set of named values called elements. It can have only one type of data and no methods, and new members can be added:
+Is an enumerated type (also called enumeration, `enm`) is a data type consisting of a set of named values called elements. It can have only one type of data and no methods.
 ```
 typ color: enm = {
     BLUE, RED, BLACK, WHITE: str = "#0037cd", "#ff0000", "#000000", "#FFFFFF";
 };
 
-color.add(GREEN) = "#ff0000";
-
 if( something == color.BLUE ) { dosomething } else { donothing }
+```
+
+### Unions
+Union is a data type that allows different data types to be stored in the same memory locations. Union provides an efficient way of reusing the memory location, as only one of its members can be accessed at a time. It uses a single memory location to hold more than one variables. However, only one of its members can be accessed at a time and all other members will contain garbage values. The memory required to store a union variable is the memory required for the largest element of the union.
+
+We can use the unions in the following locations.
+
+- Share a single memory location for a variable and use the same location for another variable of different data type.
+- Use it if you want to use, for example, a long variable as two short type variables.
+- We don’t know what type of data is to be passed to a function, and you pass union which contains all the possible data types.
+
+```
+typ aUnion: uni[] = {
+    age: int[8];
+    salary: int;
+    bonu: flt[];
+}
 ```
 
 
 ### Classes
-Calsses are the way that FOL can apply OOP. They basically are a glorified record. Instead of methods to be used fom outside the body, they have the method declaration within the body.
-Here are some ways that class can be defined. For example, creating an class `filer` that inherits from class called `system` and can be modified if inherited by another classes.
+Calsses are the way that FOL can apply OOP paradigm. They basically are a glorified record. Instead of methods to be used fom outside the body, they have the method declaration within the body. For example, creating an class `computer` and its methods within the body:
 ```
-typ[pub,~] computer(system): cls = {
-    var[pub] dir: str;
-    var[pub] size: int[16];
+~typ[pub] computer: cls = {
+    var[pub] brand: str;
+    var[pub] memory: int[16];
 
-    +fun aMethod(var1: int, var2: str): str = { return; };
+    +fun getType(): str = { return brand + .to_string(memory); };
 }
 
 var laptop: computer = { member1 = value, member2 = value; };
-laptop.aMethod(5, "dell");
+.echo(laptop.getType());
 ```
 
 
