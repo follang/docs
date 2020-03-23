@@ -3,34 +3,24 @@ title: 'Complex'
 type: "docs"
 weight: 300
 ---
-### Strings
+## Strings
 
 Strings are a complex type that are made of array of chars with null terminator '\0', and by default is utf8 encoded:
 ```
-str[8,16,32]
-```
-`str` is similar to `seq[char[]]`
-
-
-
-### Imaginary
-Imaginary numbers
-```
-img[]
+str[]
 ```
 
-### Optional
-Either are empty or have a value
+## Number
+Number type is an abstraction of intiger and float type. It can be imaginary too.
 ```
-opt[]
-```
-
-### Multiple
-```
-mul[]
+num[]
 ```
 
-### Any
+## Pointer
 ```
-any[]
+ptr[]
+```
+## Error
+```
+err[]
 ```

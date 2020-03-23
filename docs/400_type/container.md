@@ -53,7 +53,7 @@ Dynamic arrays are a dynamically allocated (hence the name), thus if not allocat
 
 
 There are two implementations of dynamic arrays:
-- vactors `vec[]`
+- vectors `vec[]`
 - sequences `seq[]`
 
 

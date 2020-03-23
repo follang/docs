@@ -4,10 +4,10 @@ type: "docs"
 weight: 700
 ---
 
-A number literal is either an integer literal or a floating-point literal. The grammar for recognizing the two kinds of literals is mixed.
+A number is either an integer, floating-point or imaginary. The grammar for recognizing the kind of number is mixed.
 
-## Intiger literals
-An integer literal has one of four forms:
+## Intigers
+An integer has one of four forms:
 
 - A decimal literal starts with a decimal digit and continues with any mixture of decimal digits and underscores.
 - A hex literal starts with the character sequence `U+0030` `U+0078` (`0x`) and continues as any mixture (with at least one digit) of hex digits and underscores.
@@ -31,9 +31,9 @@ var bNumber: int = 540467;
 assert(aNumber, bNumber)
 ```
 
-## Float literal
+## Floating points
 
-A floating-point literal has one of two forms:
+A floating-point has one of two forms:
 
 - A decimal literal followed by a period character `U+002E` (`.`). This is optionally followed by another decimal literal.
 - A decimal literal that follows a period character `U+002E` (`.`).
@@ -42,3 +42,5 @@ A floating-point literal has one of two forms:
 var aFloat: flt = 3.4;
 var bFloat: flt = .4;
 ```
+
+## Imaginary numbers

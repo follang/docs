@@ -12,6 +12,7 @@ Fol has a number of restricted groups of keywords:
 
 BK_AS              `as`
 BK_IN              `in`
+BK_IS              `is`
 BK_DO              `do`
 BK_GO              `go`
 

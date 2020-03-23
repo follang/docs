@@ -1,13 +1,24 @@
 ---
-title: 'Simple'
+title: 'Ordinal'
 type: "docs"
 weight: 100
 ---
 
-Simple types are the most primitive type of data:
-```
-int[options], flt[options], chr[options], bol
-```
+Ordinal types
+
+Ordinal types have the following characteristics:
+
+- Ordinal types are countable and ordered. This property allows the operation of functions as inc, ord, dec on ordinal types to be defined.
+- Ordinal values have a smallest possible value. Trying to count further down than the smallest value gives a checked runtime or static error.
+- Ordinal values have a largest possible value. Trying to count further than the largest value gives a checked runtime or static error.
+
+
+Ordinal types are the most primitive type of data:
+
+- Intigers: `int[options]`
+- Floating: `flt[options]`
+- Characters: `chr[options]`
+- Booleans: `bol`
 
 ### Intiger type
 An integer is a number without a fractional component. We used one integer of the u32 type, the type declaration indicates that the value it’s associated with should be an unsigned integer (signed integer types start with i, instead of u) that takes up 32 bits of space: 

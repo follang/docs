@@ -35,7 +35,6 @@ def main: mod[init] = {
     }
 }
 ```
----
 ### Local libraries
 To include a local package (example, package name `bender`), then we include the folder where it is, followed by the package name (folder is where files are located, package is the name defned with mod[])
 

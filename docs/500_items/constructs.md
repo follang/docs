@@ -41,10 +41,10 @@ A type definition creates a new, distinct type - a record. A record is an aggreg
 It may appear that records and heterogeneous [set](/docs/spec/types/#sets) are the same, but that is not the case. The elements of a heterogeneous `set[]` are all references to data objects that reside in scattered locations, often on the heap. The elements of a record are of potentially different sizes and reside in adjacent memory locations. Records are normally used as encapsulation structures, rather than data structures. 
 ```
 typ user: rec = {
-    username: str,
-    email: str,
-    sign_in_count: int[64],
-    active: bol,
+    username: str;
+    email: str;
+    sign_in_count: int[64];
+    active: bol;
 };
 ```
 
@@ -111,10 +111,10 @@ fun (recieverRecord)someFunction(): str = { self.somestring; };
 After declaring the record receiver, we then we have access to the record with the keyword `self`. A receiver is essentially just a type that can directly call the method. 
 ```
 typ user: rec = {
-    username: str,
-    email: str,
-    sign_in_count: int[64],
-    active: bol,
+    username: str;
+    email: str;
+    sign_in_count: int[64];
+    active: bol;
 };
 
 fun (user)getName(): str = { result = self.username; };
@@ -132,10 +132,10 @@ var[mut] user1: user = { email = "someone@example.com", username = "someusername
 Records can have default values in their fields too. 
 ```
 typ user: rec = {
-    username: str,
-    email: str,
-    sign_in_count: int[64] = 1,
-    active: bol = true,
+    username: str;
+    email: str;
+    sign_in_count: int[64] = 1;
+    active: bol = true;
 };
 ```
 
@@ -145,25 +145,26 @@ This makes possible to enforce some fields (empty ones), and leave the defaults 
 
 ```
 
-### Catalogs
+### Entries
+{{% notice warn %}}
 
-<h5 style="color: red; !important;">
-Compared to records, catalogs cant have neither named values, neither default values (all types need to be declared).
-</h5>
+Compared to records, entry cant have neither named values, neither default values (all types need to be declared).
 
-Catalogs are simplified version of records. The are identified with `cat[]` keyword. Catalogs have the added meaning the record name provides but don’t have names associated with their fields; rather, they just have the types of the fields. Catalogs are useful when you want to give a `set[]` a name and make it be a different type from other sets, and naming each field as in a regular record would be verbose or redundant.
+{{% /notice %}}
+
+Entries are simplified version of records. The are identified with `ent[]` keyword. Entries have the added meaning the record name provides but don’t have names associated with their fields; rather, they just have the types of the fields. Entries are useful when you want to give a `set[]` a name and make it be a different type from other sets, and naming each field as in a regular record would be verbose or redundant.
 
 ```
-typ regStc: cat = {
-    int[8],
-    str,
+typ regStc: lst = {
+    int[8];
+    str;
 }
 ```
-And the difference between a catalog and aliased type to set is that, in a catalog you can restrict the values (with ranges) assigned to each field:
+And the difference between a entry and aliased type to set is that, in a entry you can restrict the values (with ranges) assigned to each field:
 ```
 typ rgbSet: set[int[8], int[8], int[8]];
 
-typ regStc: cat[] = {
+typ regEntry ent[] = {
     int[8][.range(0 ... 255)];
     int[8][.range(0 ... 255)];
     int[8][.range(0 ... 255)];
@@ -178,9 +179,9 @@ typ rgbSet: set[rgb, rgb, rgb];                       // then we create a type h
 
 ### Enums
 
-Is an enumerated type (also called enumeration, `enm`) is a data type consisting of a set of named values called elements. It can have only one type of data and no methods.
+Is an enumerated type (also called enumeration, `enu`) is a data type consisting of a set of named values called elements. It can have only one type of data and no methods.
 ```
-typ color: enm = {
+typ color: enu = {
     BLUE, RED, BLACK, WHITE: str = "#0037cd", "#ff0000", "#000000", "#FFFFFF";
 };
 
@@ -212,10 +213,10 @@ Calsses are the way that FOL can apply OOP paradigm. They basically are a glorif
     var[pub] brand: str;
     var[pub] memory: int[16];
 
-    +fun getType(): str = { return brand + .to_string(memory); };
+    +fun getType(): str = { brand + .to_string(memory) };
 }
 
-var laptop: computer = { member1 = value, member2 = value; };
+var laptop: computer = { member1 = value, member2 = value };
 .echo(laptop.getType());
 ```
 
@@ -274,7 +275,7 @@ typ rect(geo): rec[] = {                                             // this typ
 ```
 Now we can make `rect` records or classes, we have to respect the contract. If we don't implement the `geo` methods, when we instantiate a new object of type `rect` it will throw an error.
 ```
-var aRectangle: rect = { width = 5; heigh = 6; }                     // this throws an error, we haven't fullfill the ocntract
+var aRectangle: rect = { width = 5, heigh = 6 }                      // this throws an error, we haven't fullfill the ocntract
 ```
 
 To do so, we need first to create the default `rect` methods from `geo` standard, then instantiate a new object:
@@ -283,7 +284,7 @@ To do so, we need first to create the default `rect` methods from `geo` standard
 fun (rect)area(): flt[64] = { result = self.width + self.heigh }
 fun (rect)perim(): flt[64] = { result = 2 * self.width + 2 * self.heigh }
 
-var aRectangle: rect = { width = 5; heigh = 6; }                     // this from here on will work
+var aRectangle: rect = { width = 5, heigh = 6 }                     // this from here on will work
 ```
 
 The benifit of standard is that, we can create a subprogram that as parameter takes a standard, thus all objects with the standard can use afterwards that subprogram:
@@ -314,9 +315,9 @@ typ square: rec[] = {                                               // this type
 pro measure( standard: std) { .echo(standard.area() + "m2") }        // a siple method to print the standard's area
 
 // instantiate two objects
-var aRectangle: rect = { width = 5; heigh = 6; }                     // creating a new rectangle
-var aCircle: circle = { radius = 5; }                                // creating a new rectangle
-var aSquare: square = { heigh = 6; }                                 // creating a new square
+var aRectangle: rect = { width = 5, heigh = 6 }                      // creating a new rectangle
+var aCircle: circle = { radius = 5 }                                 // creating a new rectangle
+var aSquare: square = { heigh = 6 }                                  // creating a new square
 
 
 // to call the measure function that rpints the surface

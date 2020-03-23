@@ -4,21 +4,6 @@ type: "docs"
 weight: 100
 ---
 
-
-
-{{% notice tip %}}
-
-WITH BUILD-INS, ALTERNATIVES, MACROS, DEFAULTS AND TEMPLATES, YOU CAN COMPLETELY MAKE A NEW TYPESYSTEM, WITH ITS OWN KEYWORDS, IDENTIFIERS, AND BEHAVIOUR.
-
-{{% /notice %}}
-
-{{% notice warn %}}
-
-IT IS NOT SUGGESTED TO RELAY HEAVILY ON MACROS BECAUSE THE CODE MIGHT LOOSES THE READABILITY WHEN SOMEONE TRIES TO USE YOUR CODE.
-
-{{% /notice %}}
-
-
 Fol has many build-in functions and macros offered by compiler, and you access them by . (with space/newline/bracket before):
 
 ```

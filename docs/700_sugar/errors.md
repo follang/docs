@@ -1,7 +1,7 @@
 ---
 title: 'Errors'
 type: "docs"
-weight: 54
+weight: 100
 ---
 Unlike other programming languages, **FOL** does not have exceptions ([Rust](https://doc.rust-lang.org/book/ch09-00-error-handling.html) neither). It has only two types of errors:
 - braking errors

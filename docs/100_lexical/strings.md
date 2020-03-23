@@ -4,8 +4,8 @@ type: "docs"
 weight: 600
 ---
 
-## Character literals
-A character literal is a **single** Unicode character enclosed within quotes `U+0022` (`"`) with the exception of `U+0022` itself, which must be escaped by a preceding `U+005C` character (`\`).
+## Characters 
+A character is a **single** Unicode element enclosed within quotes `U+0022` (`"`) with the exception of `U+0022` itself, which must be escaped by a preceding `U+005C` character (`\`).
 
 ```
 var aCharacter: chr = "z\n"
@@ -19,14 +19,14 @@ var aCharacter: chr = 'z'
 ```
 
 
-## String literals
-A character literal is a **single** or a **sequence** of Unicode characters enclosed within quotes `U+0022` (`"`) with the exception of `U+0022` itself, which must be escaped by a preceding `U+005C` character (`\`).
+## Strings
+A string is a **single** or a **sequence** of Unicode elements enclosed within quotes `U+0022` (`"`) with the exception of `U+0022` itself, which must be escaped by a preceding `U+005C` character (`\`).
 ```
 var hiInEnglish: str = "Hello, world!\n"
 var hInCantonese: str = "日本語"
 ```
 
-Line-breaks are allowed in string literals. A line-break is either a newline (`U+000A`) or a pair of carriage return and newline (`U+000D`, `U+000A`). Both byte sequences are normally translated to `U+000A`, but as a special exception, when an unescaped `U+005C` character (`\` occurs immediately before the line-break, the `U+005C` character, the line-break, and all whitespace at the beginning of the next line are ignored. Thus a and b are equal:
+Line-breaks are allowed in strings. A line-break is either a newline (`U+000A`) or a pair of carriage return and newline (`U+000D`, `U+000A`). Both byte sequences are normally translated to `U+000A`, but as a special exception, when an unescaped `U+005C` character (`\` occurs immediately before the line-break, the `U+005C` character, the line-break, and all whitespace at the beginning of the next line are ignored. Thus a and b are equal:
 
 ```
 var a: str = "foobar";
@@ -67,7 +67,7 @@ var hiInEnglish: str = 'Hello, world!'
 ```
 
 
-## Boolean literal
+## Booleans
 The two values of the boolean type are written `true` and `false`:
 
 ```

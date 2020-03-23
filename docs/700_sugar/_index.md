@@ -3,5 +3,5 @@ title: "Syntactic sugar"
 description: 
 draft: false
 collapsible: true
-weight: 550
+weight: 700
 ---

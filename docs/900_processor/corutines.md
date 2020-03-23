@@ -1,48 +1,9 @@
 ---
-title: 'Concurrency'
+title: 'Corutines'
 type: "docs"
-weight: 60
+weight: 200
 ---
 
-## Concurrency
-
-Concurrency is the ability of different tasks of a program to be executed out-of-order or in partial order, without affecting the final outcome. This allows for parallel execution of the concurrent tasks, which can significantly improve overall speed of the execution in multi-processor and multi-core systems. In more technical terms, concurrency refers to the decomposability property of a program into order-independent or partially-ordered tasks.
-
-There are two distinct categories of concurrent task control. 
-
-- The most natural category of concurrency is that in which, assuming that more than one processor is available, several program tasks from the same program literally execute simultaneously. This is physical concurrency - **parallel programming**. 
-- Or programm can assume that there are multiple processors providing actual concurrency, when in fact the actual execution of programs is taking place in interleaved fashion on a single processor. This is logical concurrency **concurrent programming**. 
-
-From the programmer’s points of view, concurrency is the same as parallelism. It is the language’s task, using the capabilities of the underlying operating system, to map the logical concurrency to the host hardware.
- 
-There are at least four different reasons to use concurrency:
-- The first reason is the speed of execution of programs on machines with multiple processors.
-- The second reason is that even when a machine has just one processor, a program written to use concurrent execution can be faster.
-- The third reason is that concurrency provides a different method of conceptualizing program solutions to problems.
-- The fourth reason for using concurrency is to program applications that are distributed over several machines, either locally or network.
-
-
-To achieve concurrent programming, there are two main paradigms used:
-- Eventuals
-- Cooutines
-
-## Eventuals
-Eventuals describe an object that acts as a proxy for a result that is initially unknown, usually because the computation of its value is not yet complete. 
-
-### Async/Await
-Async methods are intended to be non-blocking operations. An await expression in an async subprogram doesn’t block the current thread while the awaited task is running. Instead, the expression signs up the rest of the subprogram as a continuation and returns control to the caller of the async subprogram and it means “Once this is done, execute this function”. It’s basically a “when done” hook for your code, and what is happening here is an async subprogram, when executed, returns a coroutine which can then be awaited. This is done usually in one thread, but can be done in multiple threads too, but thread invocations are invisible to the programmer in this case.
-```
-pro main(): int = {
-    doItFast() | async                                             // compiler knows that this subprogram has an await routine, thus continue when await rises
-    .echo("dosomething to echo")
-                                                                   // the main program does not exit until the await is resolved
-}
-fun doItFast(): str = {
-    result = client.get(address).send() | await                    // this tells the subprogram that it might take time
-    .echo(result)
-}
-```
-## Coroutines
 A coroutine is a task given form the main thread, similar to a subprogram, that can be in concurrent execution with other tasks of the same program though other routines.  A **worker** takes the task and runs it, concurrently. Each task in a program can be assigned to one or multiple workers. 
 
 Three characteristics of coroutine distinguish them from normal subprograms:
@@ -53,7 +14,7 @@ Three characteristics of coroutine distinguish them from normal subprograms:
 
 In fol to assign a task to a worker, we use the symbols `[>]` 
 
-### Channels
+## Channels
 
 FOL provides asynchronous channels for communication between threads. Channels allow a unidirectional flow of information between two end-points: the Transmitter and the Receiver. It creates a new asynchronous channel, returning the tx/tx halves. All data sent on the Tx (transmitter) will become available on the Rx (receiver) in the same order as it was sent. The data is sent in a sequence of a specifies type `seq[type]`. `tx` will not block the calling thread while `rx` will block until a message is available.
 
@@ -92,7 +53,7 @@ pro main(): int = {
 }
 ```
 
-### Locks - Mutex
+## Locks - Mutex
 
 Mutex is a locking mechanism that makes sure only one task can acquire the mutexed varaible at a time and enter the critical section. This task only releases the mutex when it exits the critical section. It is a mutual exclusion object that synchronizes access to a resource. 
 

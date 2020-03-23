@@ -1,7 +1,7 @@
 ---
 title: 'Pipes'
 type: "docs"
-weight: 56
+weight: 200
 ---
 
 Piping is a process that connects the output of the expression to the left to the input of the expression of the right. You can think of it as a dedicated program that takes care of copying everything that one expressionm prints, and feeding it to the next expression. The idea is the same as `bash pipes`. For example, an subprogram output is piped to a conditional through pipe symbol `|` then the conditional takes the input and returns true or false. If returned false, then the second part of pipe is returned. To access the piped variable, `this` keyword is used:
