@@ -8,15 +8,68 @@ At least two linguistic mechanisms are necessary to make the computations in pro
 
 
 ## Choice type
+### Condition
 ```
 if(condition){} else(condition){} else{};
-case(variable){like(){}; like(){}; none{}};
-case(variable){type(){}; type(){}; none{}};
+```
+Checking equality 
+```
+if(x == 6) {
+    // implementation
+} else(x == 7) {
+    // implementation
+} else {
+    // default implementation
+}
+```
+
+### Selection
+```
+if(variable){ is (value){}; is (value){}; * {}; };
+if(variable){ in (iterator){}; in (iterator){}; * {}; };
+if(iterable){ has (member){}; has (member){}; * {}; };
+if(variable){ of (type){}; of (type){}; * {}; };
+if(type){ on (channel){}; on (channel){}; };
 ```
 
 ## Loop type
+
+### Iteration
 ```
-for(iterator){};
+each(iterable){};
+```
+
+With start- and end-values 
+```
+each(x in .range(0..100)){
+    //implementation
+}
+
+each(x in (.range(0..100)) if ( x % 2 = 0 )){
+    //implementation
+}
+```
+With enumeration of containers
+```
+each(x in array){
+    // implementation
+}
+```
+### Repetition
+```
 loop(condition){};
+```
+
+Condition befor block
+```
+loop(true){
+    // implementation
+};
+```
+Block before condition
+```
+loop{
+    // implementation
+}(true);
 ```
 

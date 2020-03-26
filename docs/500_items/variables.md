@@ -96,6 +96,7 @@ Flag options can have symbol aliases eg. `var[mut]` is the somename as `var[~]`.
 |  mut   | ~ |   flag    | making a variable mutable                         | mutability    |
 |  imu   |   |   flag    | making a variable imutable (default)              |               |
 |  sta   | ! |   flag    | making a variable a static                        |               |
+|  rac   | ? |   flag    | making a variable reactive                        |               |
 ----------------------------------------------------------------------------------------------
 |  exp   | + |   flag    | making a global variable pubic                    | visibility    |
 |  nor   |   |   flag    | making a global variable normal (default)         |               |
@@ -136,7 +137,19 @@ pro[] main: int = {
     aNumber, anotherNumber = 6          // this is completely fine, we assign two wariables new values
 }
 ```
+### Reactive types
+Reactive types is a types that flows and propagates changes. 
 
+For example, in an normal variable setting, `var a = b + c` would mean that `a` is being assigned the result of `b + c` in the instant the expression is evaluated, and later, the values of `b` and `c` can be changed with no effect on the value of `a`. On the other hand, declared as reactive, the value of `a` is automatically updated whenever the values of `b` or `c` change, without the program having to re-execute the statement `a = b + c` to determine the presently assigned value of `a`.
+```
+pro[] main: int = {
+    var[mut] b, c = 5, 4;
+    var[rac] a: int = b + c
+    .echo(a)                            // prints 9
+    c = 10;
+    .echo(a)                            // now it prints 10
+}
+```
 ### Static types
 Is a variable which allows a value to be retained from one call of the function to another, meaning that its lifetime declaration. and can be used as `var[sta]` or `var[!]`. This variable is special, because if it is initialized, it is placed in the [data segment](https://en.wikipedia.org/wiki/Data_segment) (aka: initialized data) of the program memory. If the variable is not set, it is places in [.bss segmant](https://en.wikipedia.org/wiki/.bss) (aka: uninitialized data)
 ```

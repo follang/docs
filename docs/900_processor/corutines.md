@@ -4,10 +4,10 @@ type: "docs"
 weight: 200
 ---
 
-A coroutine is a task given form the main thread, similar to a subprogram, that can be in concurrent execution with other tasks of the same program though other routines.  A **worker** takes the task and runs it, concurrently. Each task in a program can be assigned to one or multiple workers. 
+A coroutine is a task given form the main thread, similar to a routine, that can be in concurrent execution with other tasks of the same program though other routines.  A **worker** takes the task and runs it, concurrently. Each task in a program can be assigned to one or multiple workers. 
 
-Three characteristics of coroutine distinguish them from normal subprograms:
-- First, a task may be implicitly started, whereas a subprogram must be explicitly called. 
+Three characteristics of coroutine distinguish them from normal routines:
+- First, a task may be implicitly started, whereas a routine must be explicitly called. 
 - Second, when a program unit invokes a task, in some cases it need not wait for the task to complete its execution before continuing its own. 
 - Third, when the execution of a task is completed, control may or may not return to the unit that started that execution.
 - Fourth and most importantly, the execution of the routine is entirely independent from main thread.
@@ -33,7 +33,7 @@ fun doItFast(i: int; found: bol): str = {
 }
 ```
 
-If we want to use the channel within the function, we have to clone the channel's tx and capture with an ananymus subprogram: Once the channels transmitter goes out of scope, it gets disconnected too.
+If we want to use the channel within the function, we have to clone the channel's tx and capture with an ananymus routine: Once the channels transmitter goes out of scope, it gets disconnected too.
 ```
 pro main(): int = {
     var channel: chn[str];                                                      // a channel with four buffer transmitters
@@ -57,7 +57,7 @@ pro main(): int = {
 
 Mutex is a locking mechanism that makes sure only one task can acquire the mutexed varaible at a time and enter the critical section. This task only releases the mutex when it exits the critical section. It is a mutual exclusion object that synchronizes access to a resource. 
 
-In FOL mutexes can be passed only through a subprogram. When declaring a subprogram, instead of using the borrow form with `( // borrowing variable )`, we use double brackets `(( // mutex ))`. When we expect a mutex, then that variable, in turn has two method more: 
+In FOL mutexes can be passed only through a routine. When declaring a routine, instead of using the borrow form with `( // borrowing variable )`, we use double brackets `(( // mutex ))`. When we expect a mutex, then that variable, in turn has two method more: 
 
 - the `lock()` which unwraps the variable from mutex and locks it for writing and 
 - the `unlock()` which releases the lock and makes the file avaliable to other tasks

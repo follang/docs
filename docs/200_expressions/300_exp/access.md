@@ -6,7 +6,7 @@ weight: 500
 
 There are four access expresions:
 - namespace member access
-- subprogram member access
+- routine member access
 - container memeber access
 - field member access
 
@@ -95,7 +95,7 @@ There are two types of fields that can be accesed within constructs:
 
 ### Methods
 
-Methods are accesed the same way like subprogram member access.
+Methods are accesed the same way like routine member access.
 ```
 user1.getName()
 ```

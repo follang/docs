@@ -18,21 +18,21 @@ declaration[options] name: type[options] = { implementation; };
 ```
 use    // imports, includes ...
 def    // preporcesr, macros, bocks, definitions ...
-var    // all variables, ints, strings, bools, arrays, vecotrs ...
+var    // all variables: ordinal, container, complex, special
 pro    // subporgrams with side effects - procedures
 fun    // subporgrams with no side effects - functions
-typ    // new types, structs, objects, interfaces, enums ...
+ali    // new types: aiases, extensions
+typ    // new types: records, enums, unions, classes
+std    // standards: protocols, blueprints
 ```
 ## control flow
 ```
 if(condition){} else(condition){} else{};
-for(){};
-each(){};
+if(variable){ is (){}; is (){}; * {}; };
+each(iterator){};
 loop(condition){};
-case(variable){like(){}; like(){}; else{}};
-case(variable){type(){}; type(){}; else{}};
 ```
 ## keywords
 ```
-continue; break; return; yeild; jump; result; default; report; error; assert; check; test; or; and;
+continue; break; return; yeild; jump; result; report; panic; error; assert; check; test; or; and; ...
 ```

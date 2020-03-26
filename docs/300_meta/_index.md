@@ -1,5 +1,5 @@
 ---
-title: "Macro system"
+title: "Meta programming"
 description: 
 draft: false
 collapsible: true

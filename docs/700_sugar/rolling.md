@@ -14,8 +14,12 @@ Rolling has the same syntactic components to represent generation of a list in o
 - An optional predicate expression.
 - And an output expression producing members of the output list from members of the input iterable that satisfy the predicate.
 
-The order of generation of members of the output list is based on the order of items in the input. 
+The order of generation of members of the output list is based on the order of items in the input. Syntactically, rolling consist of an iterable containing an expression followed by a for statement. In FOL the syntax follows exacly the **Python's list comprehension** syntax:
+```
+var aList: vec[] = { x for x in iterable if condition }
+```
 
+Rolling provides an alternative syntax to creating lists and other sequential data types. While other methods of iteration, such as for loops, can also be used to create lists, rolling may be preferred because they can limit the number of lines used in your program.
 ```
 var aList: vec[] = { .range(..12) };
 

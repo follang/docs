@@ -10,23 +10,19 @@ Fol has a number of restricted groups of keywords:
 
 {{% placeholder %}} 
 
-BK_AS              `as`
-BK_IN              `in`
-BK_IS              `is`
-BK_DO              `do`
-BK_GO              `go`
-
 BK_OR              `or`
+BK_XOR             `xor`
 BK_AND             `and`
 
 BK_IF              `if`
 BK_ELSE            `else`
 BK_FOR             `for`
-BK_CASE            `case`
-BK_LIKE            `like`
-BK_TYPE            `type`
+BK_EACH            `each`
 BK_LOOP            `loop`
-BK_NONE            `none`
+
+BK_IS              `is`
+BK_HAS             `has`
+BK_IN              `in`
 
 BK_THIS            `this`
 BK_SELF            `self`
@@ -38,9 +34,16 @@ BK_PANIC           `panic`
 BK_REPORT          `report`
 BK_CHECK           `check`
 BK_ASSERT          `assert`
+BK_WHERE           `where`
 
 BK_TRUE            `true`
 BK_FALSE           `false`
+
+BK_AS              `as`
+BK_CAST            `cast`
+
+BK_DO              `do`
+BK_GO              `go`
 
 {{% /placeholder %}}
 
@@ -62,7 +65,9 @@ AK_DEF             `def`
 AK_VAR             `var`
 AK_FUN             `fun`
 AK_PRO             `pro`
+AK_ALI             `ali`
 AK_TYP             `typ`
+AK_STD             `std`
 
 {{% /placeholder %}}
 
@@ -86,11 +91,11 @@ TK_CHR             `chr`
 TK_BOL             `bol`
 
 TK_ARR             `arr`
-TK_SEQ             `seq`
 TTKVEC             `vec`
+TK_SEQ             `seq`
+TK_MAT             `mat`
 TK_SET             `set`
 TK_MAP             `map`
-TK_MAT             `mat`
 
 TK_STR             `str`
 TK_NUM             `num`
