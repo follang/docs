@@ -21,9 +21,10 @@ var aList: vec[] = { x for x in iterable if condition }
 
 Rolling provides an alternative syntax to creating lists and other sequential data types. While other methods of iteration, such as for loops, can also be used to create lists, rolling may be preferred because they can limit the number of lines used in your program.
 ```
-var aList: vec[] = { .range(..12) };
+var aList: vec[] = {..12};
 
 var another: vec[] = { ( x * x ) for ( x in aList ) if ( x % 3 == 0 ) }
+var matrix: mat[int, int] = { x * y for ( x in {..5}, y in {..5} ) }
 ```
 
 

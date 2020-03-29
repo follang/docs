@@ -140,23 +140,77 @@ map[key,value]
 A map is an unordered group of elements of one type, called the element type, indexed by a set of unique keys of another type, called the key type.
 ```
 pro[] main: int = {
-    var aMap: map[str, int] = { { "US", 45 }, { "DE", 82 }, { "AL", 54 } };
+    var aMap: map[str, int] = { {"US",45}, {"DE",82}, {"AL",54} };
     var element = aMap["US"];                                 // accessing the "US" key
     .echo(element)                                            // prints: 45
 }
 ```
-The number of map elements is called its length. For a map `aMap`, it can be discovered using the built-in function `.len` and may change during execution To add a new element, we use `add` function:
+The number of map elements is called its length. For a map `aMap`, it can be discovered using the built-in function `.len` and may change during execution To add a new element, we use `name+[element]` or `add`function:
 
 ```
 .echo(.len(aMap))           // prints: 3
-aMap.add({ "IT", 55 })
+aMap.add( {"IT",55} )
+aMap+[{"RU",24}]
 .echo(.len(aMap))           // prints: 4
 ```
 The comparison operators `==` and `!=` must be fully defined for operands of the key type; thus the key type must not be a function, map, or sequence.
-
 
 {{% notice tip %}}
 
 Maps are a growable containers too, thus if not allocated in heap but in stack, the size will be defined automatically in compile time and will be changet to static containers
 
 {{% /notice %}}
+
+### Axiom
+```
+axi[typ, typ]
+```
+A axiom is a list of facts. A fact is a predicate expression that makes a declarative statement about the problem domain. And whenever a variable occurs in a expression, it is assumed to be universally quantified as [**silent**](/docs/700_sugar/silents/).
+```
+var likes: axi[str, str] = { {"bob","alice"} , {"alice","bob"}, {"dan","sally"} };
+```
+
+{{% notice info %}}
+
+Accesing any container always returns the value, but if we put an `:` after the access symbol so `[]:`, then it will return  `true` or `false` if there is data or not on the specified access.
+
+{{% /notice %}}
+
+```
+likes["bob","alice"]                // will return {"bob","alice"}
+likes["bob","alice"]:               // will return true
+likes["sally","dan"]                // will return {}
+likes["sally","dan"]:               // will return false
+```
+
+Axioms are a data types that are meant to be used with logic programming. There are containers where facts are stated, and when we want to acces the data, they are always served as containers.
+
+```
+var parent: axi[str, str] = { {"albert","bob"}, {"alice","bob"}, {"bob","carl"}, {"bob","tom"} };
+
+parent["bob",*]                     // this gets all elements that "bob" relates to
+{"carl", "tom"}
+parent[*,"bob"]                     // this gets all elements that "bob" relates from
+{"albert", "alice"}
+```
+
+Adding new element can be done like in other containers:
+```
+var parent: axi[str, str] = { {"albert","bob"}, {"alice","bob"}, {"bob","carl"}, {"bob","tom"} };
+parent.add({"albert","betty"})
+parent.add({"albert","bill"})
+parent.add({"alice","betty"})
+parent.add({"alice","bill"})
+```
+
+And they can be nesetd too:
+```
+var line: axi[axi[int, int], axi[int, int]] = {{{4,5},{4,8}},{{8,5},{4,5}}}
+
+```
+
+And we can use the simplified form too, just `axi` instead of all the type. We let the compiler fill in the for us:
+```
+var line: axi = {{{4,5},{4,8}},{{8,5},{4,5}}}
+
+```

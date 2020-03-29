@@ -34,9 +34,10 @@ var aContainer: container[int, 5] = { anarray = {zero, one, two, three, four}; }
 Static dispatch (or early binding) happens when compiler knows at compile time which function body will be executed when I call a method. In contrast, dynamic dispatch (or run-time dispatch or virtual method call or late binding) happens when compiler defers that decision to run time. This runtime dispatch requires either an indirect call through a function pointer, or a name-based method lookup.
 
 ```
-std foo: bas[] = { fun bar(); }
+std foo: pro = { fun bar(); }
 
-typ int, str: ext[];
+typ[ext] int, str: int, str;
+
 fun (int)bar() = {  }
 fun (str)bar() = {  }
 

@@ -33,8 +33,6 @@ There are four predefned types:
 
 ### Constructed types
 - records
+- tables
 - entries
-- enums
-- unions
-- classes
 

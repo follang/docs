@@ -38,8 +38,8 @@ Cluster literals represent both container types and construct types. Cluster lit
 #### Containers
 Some simple container expressions
 ```
-{ 5, 6, 7, 8 }                      // array, vector, sequences
-{ {"one", 1}, {"two", 2} }          // maps
+{ 5, 6, 7, 8, }                     // array, vector, sequences
+{ "one":1, "two":2, }               // maps
 { 6, }                              // single element container
 ```
 A 3x3x3 matrix

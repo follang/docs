@@ -1,7 +1,7 @@
 ---
 title: 'Methods'
 type: "docs"
-weight: 20
+weight: 30
 ---
 
 There is another type of routine, called method, but it can be either a pure function either a procedure. A method is a piece of code that is called by a name that is associated with an object where it is implicitly passed the object on which it was called and is able to operate on data that is contained within the object.

@@ -24,19 +24,19 @@ def[]
 used for all variables: ints, strings, bools, arrays, vecotrs ...
 ```
 var[]
-mut[]
-rac[]           // reactive
 ```
 ## functions
 used for subporgrams: procedures and functions
 ```
 pro[]
 fun[]
+log[]
 ```
 
 ## constructs
 used for: new types, records, objects, interfaces, enums ...
 ```
 typ[]
+std[]
 ```
 

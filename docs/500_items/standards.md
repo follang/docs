@@ -19,7 +19,7 @@ S, what is a to be considered a standard:
 
 In FOL, standards are named collection of method signatures and are created by using `std` keyword:
 ```
-std geometry = {
+typ geometry = {
     fun area(): flt[64];
     fun perim(): flt[64];
 };
@@ -60,7 +60,7 @@ std geo: pro = {
     fun perim(): flt[64];
 };
 
-typ rect(geo): rec[] = {                                             // this type makes a contract to use the geometry standard
+std rect(geo): rec[] = {                                             // this type makes a contract to use the geometry standard
     width: int[64];
     heigh: int[64];
 }

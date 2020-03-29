@@ -18,11 +18,14 @@ declaration[options] name: type[options] = { implementation; };
 ```
 use    // imports, includes ...
 def    // preporcesr, macros, bocks, definitions ...
+
 var    // all variables: ordinal, container, complex, special
+
 pro    // subporgrams with side effects - procedures
 fun    // subporgrams with no side effects - functions
-ali    // new types: aiases, extensions
-typ    // new types: records, enums, unions, classes
+log    // subporgrams with logic only - logicals
+
+typ    // new types: records, entries, classes, aiases, extensions
 std    // standards: protocols, blueprints
 ```
 ## control flow

@@ -9,7 +9,7 @@ Structs are the way to declare new type of data. A struct binds an identifier, t
 A struct definition creates a new, distinct type and are few of them in FOL:
 
 - records
-- tables
+- entries
 
 ## Definition
 
@@ -43,11 +43,11 @@ var laptop: computer = { member1 = value, member2 = value };
 
 
 
-### Tables
+### Entries
 
-Is an a group of constants (identified with `tab`) consisting of a set of named values called elements.
+Is an a group of constants (identified with `ent`) consisting of a set of named values called elements.
 ```
-typ color: tab = {
+typ color: ent = {
     var BLUE: str = "#0037cd" 
     var RED str = "#ff0000" 
     var BLACK str = "#000000" 
@@ -57,11 +57,11 @@ typ color: tab = {
 if( something == color.BLUE ) { doathing } else { donothing }
 ```
 
-#### Tables as enums
+#### Entries as enums
 Unums represent enumerated data. An enumeration type (or enum type) is a value type defined by a set of named constants of the underlying integral numeric type.
 ```
-typ aUnion: tab = {
-    var BLUE, RED, BLACK, WHITE: int[8] = { .range(0..3) }
+typ aUnion: ent = {
+    var BLUE, RED, BLACK, WHITE: int[8] = {..3}
 }
 ```
 
