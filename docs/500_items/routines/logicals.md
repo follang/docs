@@ -25,15 +25,15 @@ var likes: axi[str, str] = { {"bob","alice"} , {"alice","bob"}, {"dan","sally"} 
 Declaring a rule that states if A likes B and B likes A, they are dating
 ```
 log dating(a, b: str): bol = {
-    likes[a,b]: and
-    likes[b,a]:
+    likes:[a,b] and
+    likes:[b,a]
 }
 ```
 Declaring a rule that states if A likes B and B likes A, they are just friends
 ```
 log frends(a, b): bol = {
-    likes[a,b]: or
-    likes[b,a]:
+    likes:[a,b] or
+    likes:[b,a]
 }
 
 ```
@@ -43,12 +43,6 @@ Rules can have **only** facts and varibles within
 
 {{% /notice %}}
 
-### Checks
-Checking is done with container accessor and `:` after:
-```
-likes["bob","alice"]:               // will return true
-likes["sally","dan"]:               // will return false
-```
 
 ## Return
 A logical `log` can return different values, but they are either of type `bol`, or of type container (axioms `axi` or vectors `vec`):
@@ -70,7 +64,7 @@ var dances axi[str] = { "albert", "alice", "carl" };
 Here we return a boolean `bol`. This rule check if a parent can dance:
 ```
 log can_parent_dance(a: str): bol = {
-    parent[a,_]: and dances[a]:
+    parent:[a,_] and dances:[a]
 }
 
 can_parent_dance("albert")          // return true, "albert" is both a parent and can dance
@@ -78,38 +72,37 @@ can_parent_dance("bob")             // return false, "bob" is a parent but can't
 can_parent_dance("carl")            // return false, "carl" is not a parent
 ```
 Lets examine this: 
-`parent[a,_]: and dances[a]:`
+`parent:[a,_] and dances:[a]`
 this is a combintion of two facts. Here we say if `a` is parent of anyone (we dont care whose, that's why we use meh symbol `[a,_]`) and if true, then we check if parent `a` (since he is a parent now, we fact-checked) can dance. 
 
 ### Vector
 The same, we can create a vector of elements. For example, if we want to get the list of parents that dance:
 ```
 log all_parents_that_dance(): vec[str] = {
-    parent[x,_]: and
-    dances[x]:
-    x
+    parent:[*->X,_] and
+    dances:[X->Y]
+    Y
 }
 
 all_parents_that_dance()            // this will return a string vector {"albert", "alice"}
 ```
 Now lets analyze the body of the rule:
 ```
-parent[x,_]: and
-dances[x]:
-x
+parent:[*->X,_] and
+dances:[X->Y]
+Y
 ```
 Here are a combination of facts and variable assignment through [**silents**](/docs/700_sugar/silents/). Silents are a single letter identifiers. If a silent constant is not declared, it gets declared and assigned **in-place**.
 
 Taking a look each line:
-`parent[x,_]: and`
-this gets all parents (and again we dont care for the childrens, we use meh symbol `[x,_]`), but in this case we assign them to **silent** `x`. So, `x` is a list of all parents. 
+`parent:[X,_] and`
+this gets all parents (`[*->X,_]`),and assign them to **silent** `X`. So, `X` is a list of all parents. 
 then:
-`dances[x]:` 
-this takes the list of parents `x` and checks each if they can dance, and filters it will only the parents that can dance.
+`dances[X->Y]:` 
+this takes the list of parents `X` and checks each if they can dance, and filter it by assigning it to `Y` so `[X->Y]` it will have only the parents that can dance.
 then:
-`x`
-this just returns the list `x` of parents that can dance.
-
+`Y`
+this just returns the list `Y` of parents that can dance.
 
 ## Relationship
 If `A` is `object` and `objects` can be destroyed, then `A` can be destroyed. As a result axioms can be related or conditioned to other axioms too, much like facts. 
@@ -117,17 +110,17 @@ If `A` is `object` and `objects` can be destroyed, then `A` can be destroyed. As
 For example: if `carl` is the son of `bob` and `bob` is the son of `albert` then `carl` must be the grandson of `albert`: 
 ```
 log grandparent(a: str): vec[str] = {
-    parent[x,a]: and 
-    parent[y,X]:
+    parent[*->X,a]: and 
+    parent[*->Y,X]:
     Y
 }
 ```
 Or: if `bob` is the son of `albert` and `betty` is the doughter of `albert`, then `bob` and `betty` must be syblings:
 ```
 log are_syblings(a, b: str): vec[str] = {
-    parent[x,a]: and
-    parent[x,b]:
-    x
+    parent[*->X,a]: and
+    parent[X->Y,b]:
+    Y
 }
 ```
 Same with uncle relationship:
@@ -135,9 +128,9 @@ Same with uncle relationship:
 var brothers: axi[str] = { {"bob":"bill"}, {"bill","bob"} };
 
 log has_uncle(a: str): vec[str] = {
-    parent[y,a]: and
-    brothers[y,z]:;
-    z
+    parent[*->Y,a]: and
+    brothers[Y,*->Z]:;
+    Z
 }
 ```
 
@@ -149,7 +142,7 @@ var stabs: axi = {{"tybalt","mercutio","sword"}}
 var hates: axi;
 
 log romeHates(X: str): bol = {
-    stabs[x,"mercutio",_]:
+    stabs[X,"mercutio",_]:
 }
 
 hates+["romeo",X] if (romeHates(X));
@@ -171,15 +164,15 @@ eats+[x:"cheesburger"] if (log (a: str): bol = {
 var line: axi = { {{4,5},{4,8}}, {{8,5},{4,5}} }
 
 log vertical(line: axi): bol = {
-    line[A,B]: and 
-    A[X,Y]: and
-    B[X,Y2]:
+    line[*->A,*->B]: and 
+    A[*->X,Y*->]: and
+    B[X,*->Y2]:
 }
 
 log horizontal(line: axi): bol = {
-    line[A,B]: and 
-    A[X,Y]: and
-    B[X2,Y]:
+    line[*->A,*->B]: and 
+    A[*->X,*->Y]: and
+    B[*->X2,Y]:
 }
 
 assert(vertical(line.at(0))
@@ -195,6 +188,7 @@ class.add({"cs340","spring",{"tue","thur"},{12,13},"john","coor_5"})
 class.add({"cs340",winter,{"wed","fri"},{15,16},"bruce","coor_3"})
 
 log instructor(class: str): vec[str] = {
-    class[class,_,[_,"fri"],_,A,_]
+    class[class,_,[_,"fri"],_,*->X,_]
+    X
 }
 ```

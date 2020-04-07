@@ -4,28 +4,43 @@ type: "docs"
 weight: 300
 ---
 
+{{% notice warn %}}
+
+Comments in FOL code **DON'T**  follow the traditional style of line (`//`) comment forms. 
+
+{{% /notice %}}
+
 ## Normal comments
 
-Comments in FOL code follow the general Rust/C++ style of line (`//`) and block (`/* ... */`) comment forms and are interpreted as a form of whitespace.
+
+They are represented with backtick.
 
 {{% placeholder %}}
 
-LINE_COMMENT :
-`// (~[/ !] | //) ~\n*` | `//`
-
-BLOCK_COMMENT :
-`/* (~[* !] ) ( ~*/)* */` | `/**/`
+SINGLE_LINE_COMMENT :
+```
+`this is a single line comment`
+```
+MULTI_LINE_COMMENT :
+```
+`this is a 
+multi
+line
+comment`
+```
 
 {{% /placeholder %}}
 
 
 ## Docs comments
 
-Doc comments beginning with exactly three slashes (`///`) are interpreted as a special syntax for doc attributes. 
+Doc comments have at the beggining of comment the optinon `[doc]`. 
 
 {{% placeholder %}}
 
 DOC_COMMENT:
-`/// (~/ ~[\n]*)?`
+```
+`[doc] this is a documentation comment`
+```
 
 {{% /placeholder %}}

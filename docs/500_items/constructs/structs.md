@@ -154,9 +154,9 @@ This makes possible to enforce some fields (empty ones), and leave the defaults 
 We can also restrict the values (with ranges) assigned to each field:
 ```
 typ rgb: rec[] = {
-    var r: int[8][.range(0..255)];
-    var g: int[8][.range(0..255)];
-    var b: int[8][.range(0..255)];
+    var r: int[8][.range(255)];
+    var g: int[8][.range(255)];
+    var b: int[8][.range(255)];
 }
 
 var mint: rgb = { 153, 255, 187 }
@@ -164,7 +164,7 @@ var mint: rgb = { 153, 255, 187 }
 
 This of course can be achieve just with variable types and aliased types and sets too, but we would need to create two types:
 ```
-typ rgb: set[int[8][.range(0..255)], int[8][.range(0..255)], int[8][.range(0..255)]];
+typ rgb: set[int[8][.range(255)], int[8][.range(255)], int[8][.range(255)]];
 
 var mint: rgb = { 153, 255, 187 }
 ```

@@ -23,7 +23,7 @@ So now the in the code, instead of writing `arr[int, 5]` we could use `I5`:
 ```
 Another example is creating a `rgb` type that can have numbers only form 0 to 255:
 ```
-typ[ali] rgb: int[8][.range(0..255)] ;                     // we create a type that holds only number from 0 to 255
+typ[ali] rgb: int[8][.range(255)] ;                        // we create a type that holds only number from 0 to 255
 typ[ali] rgbSet: set[rgb, rgb, rgb];                       // then we create a type holding the `rgb` type
 ```
 

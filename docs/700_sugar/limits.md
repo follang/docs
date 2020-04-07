@@ -10,7 +10,7 @@ Limiting is a syntactic way to set boundaries for variables. The way FOL does is
 ## Initger limiting
 Example, making a intiger variable have only numbers from 0 to 255 that represents an RGB value for a single color:
 ```
-var rgb: int[][.range(0..255)];
+var rgb: int[][.range(255)];
 
 ```
 

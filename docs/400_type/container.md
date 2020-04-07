@@ -172,15 +172,15 @@ var likes: axi[str, str] = { {"bob","alice"} , {"alice","bob"}, {"dan","sally"} 
 
 {{% notice info %}}
 
-Accesing any container always returns the value, but if we put an `:` after the access symbol so `[]:`, then it will return  `true` or `false` if there is data or not on the specified access.
+Accesing any container always returns the value, but if we put an `:` before the access symbol so `:[]`, then it will return  `true` or `false` if there is data or not on the specified access.
 
 {{% /notice %}}
 
 ```
 likes["bob","alice"]                // will return {"bob","alice"}
-likes["bob","alice"]:               // will return true
+likes:["bob","alice"]               // will return true
 likes["sally","dan"]                // will return {}
-likes["sally","dan"]:               // will return false
+likes:["sally","dan"]               // will return false
 ```
 
 Axioms are a data types that are meant to be used with logic programming. There are containers where facts are stated, and when we want to acces the data, they are always served as containers.

@@ -11,7 +11,7 @@ FOL programs are constructed by linking together packages. A package in turn is 
 
 Every file with extension `.fol` in a folder is part of a package. Thus every file in the folder that uses the same package name, share the same scope between each other. 
 
-Two packages can exist in same folder however is suggested using hierarchy folders to separate packages. 
+Two packages can't exist in same folder, so it is suggested using hierarchy folders to separate packages. 
 
 ## Types
 

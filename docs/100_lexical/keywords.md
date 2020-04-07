@@ -15,8 +15,8 @@ BK_XOR             `xor`
 BK_AND             `and`
 
 BK_IF              `if`
-BK_ELSE            `else`
 BK_FOR             `for`
+BK_WHEN            `when`
 BK_EACH            `each`
 BK_LOOP            `loop`
 
@@ -65,7 +65,7 @@ AK_DEF             `def`
 AK_VAR             `var`
 AK_FUN             `fun`
 AK_PRO             `pro`
-AK_ALI             `ali`
+AK_LOG             `log`
 AK_TYP             `typ`
 AK_STD             `std`
 

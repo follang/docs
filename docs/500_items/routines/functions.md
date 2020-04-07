@@ -40,17 +40,28 @@ Anonymous function is a function definition that is not bound to an identifier. 
 
 Staring by assigning a anonymous function to a vriable:
 ```
-var[] f = fun[] (a, b: int): int = {                                    // assigning a variable to function
+var f = fun (a, b: int): int = {                                        // assigning a variable to function
     return a + b
 }
 .echo(f(5,6))                                                           // prints 11
+
+var f: int = (a, b: int){                                               // this is an short alternative of same variable assignmet to function
+    return a + b
+}
 ```
 
 It is also possible to call a anonymous function without assigning it to a variable.
 ```
-fun[] (a, b: int) = {                                                   //define anonymous function
+`version 1`
+fun[] (a, b: int) = {                                                   `define anonymous function`
     .echo(a + b)
-}(5, 6)                                                                 //calling anonymous function
+}(5, 6)                                                                 `calling anonymous function`
+
+
+`version 2`
+(a, b: int){                                                            `define anonymous function`
+    .echo(a + b)
+}(5, 6)                                                                 `calling anonymous function`
 ```
 
 

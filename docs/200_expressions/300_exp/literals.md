@@ -74,3 +74,24 @@ Call literals are function calls that resolve to values:
 ```
 var seven: int = add(2, 5);             // assigning variables "seven" to function call "add"
 ```
+
+
+`typ Vector: rec = {
+    var x: flt
+    var y: flt
+}
+
+typ Rect: rec = {
+    var pos: Vector
+    var size: Vecotr
+}
+
+
+fun make_rect(min, max: Vector): Rect {
+    return [Rect]{{min.x, min.y}, {max.x - max.y, max.y - max.y}}
+    return [Rect]{pos = {min.x, min.y}, size = {max.x - max.y, max.y - max.y}}
+}
+
+
+
+`

@@ -6,15 +6,15 @@ draft: false
 
 ---
 
-<h2 style="color: red !important;">FOL IS STILL IN VERY VERY EARLY DEVELOPMENT</h2>
+<span style="font-size: 2em !important; color: red !important;">FOL IS STILL IN VERY VERY EARLY DEVELOPMENT</span>
 
-## __*Everything*__ in **FOL** is declared like below:
+<span style="font-size: 1.6em !important;">Everything in FOL follows the same structure:</span>
 
 ```
 declaration[options] name: type[options] = { implementation; };
 ```
 
-## top-most declarations
+## declarations
 ```
 use    // imports, includes ...
 def    // preporcesr, macros, bocks, definitions ...
@@ -30,12 +30,26 @@ std    // standards: protocols, blueprints
 ```
 ## control flow
 ```
-if(condition){} else(condition){} else{};
-if(variable){ is (){}; is (){}; * {}; };
-each(iterator){};
-loop(condition){};
+when(condition){ case (){}; case (){}; * {}; };
+loop(condition){  };
 ```
-## keywords
+
+&nbsp;
+<hr>
+
+## example
 ```
-continue; break; return; yeild; jump; result; report; panic; error; assert; check; test; or; and; ...
+use log: mod[std] = {fmt::log};
+
+def argo: mod[init] = {
+    
+    -var const: str = "something here"
+
+    +pro main: int = {
+        log.warn("Last warning!...");
+        .echo(add(3, 5));
+    }
+
+    fun add(a, b: int): int = { a + b }
+}
 ```

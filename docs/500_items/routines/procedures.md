@@ -61,8 +61,8 @@ pro[] main: int =  {
 
 But now, we were able to change just the variable that is defined in heap (case two), by moving back the ownership. In case one, since the value is copied, the owner of newly copied value is the procedure itself. So the `.give_back()` is ignored. To fix this, we use [borrowing](/docs/spec/050_pointers/#borrowing) to lend a value to the procedure
 ```
-pro[] modifyValue((someStr): str) = {                         // we use `(someStr)` to mark it as borrowable
-    someStr = someStr + " world!"
+pro[] modifyValue(SOMESTR: str) = {                         // we use allcaps `SOMESTR` to mark it as borrowable
+    somestr = someStr + " world!"                           // when we refer, we can both refer with ALLCAPS or lowecaps
 }
 
 pro[] main: int =  {
@@ -77,10 +77,14 @@ pro[] main: int =  {
     .echo(aString)                                          // this now prints: "hello world!", 
 }
 ```
+{{% notice warn %}}
 
-So to make a procedure borrow a varibale it uses `(varName)`. 
+So to make a procedure borrow a varibale it uses all caps name `A_VAR`. 
+Remember that two variables are the same if have same characters (does not matter the caps)
+
+{{% /notice %}}
 ```
-pro[] borrowingProcedure(aVar: str; (bVar): bol; cVar, (dVar): int)
+pro[] borrowingProcedure(aVar: str; BVAR: bol; cVar, DVAR: int)
 ```
 
 To call this procedure, the borrowed parameters always shoud be a variable name and not a direct value:
@@ -90,11 +94,6 @@ var aBool, anInt = true, 5
 borrowingProcedure("get", true, 4, 5)                        // this will throw an error, cos it expects borrowable not direct value
 borrowingProcedure("get", aBool, 4, anInt)                   // this is the proper way
 
-```
-
-If all parameters are going to be borrowable, then the procedure can encapsulate all the parameters in double brackets `(( //parameters ))`:
-```
-pro[] borrowingProcedure((aVar: str; bVar: bol; cVar, dVar: int))
 ```
 
 When the value is passed as borrowable in procedure, by default it gives premission to change, so the same as `var[mut, bor]` as [disscussed here](/docs/spec/050_pointers/#borrowing).

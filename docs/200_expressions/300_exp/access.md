@@ -29,6 +29,8 @@ io::console::write_out.echo();              // echoing out
 
 
 ## Container access
+
+### Array, Vectors, Sequences, Sets
 Containers can be indexed by writing a square-bracket-enclosed expression of type `int[arch]` (the index) after them.
 ```
 var collection: int = { 5, 4, 8, 3, 9, 0, 1, 2, 7, 6 }
@@ -73,6 +75,87 @@ collection[-2::]                            // the last two items, reversed
 { 6, 7 }
 collection[::-3]                            // everything except the last three items, reversed
 { 2, 1, 0, 9, 3, 8, 4, 5 }
+```
+### Matrixes
+Matrixes are 2D+ arrays, thus they have a bit more complex acces way:
+```
+var aMat = mat[int, int] = { {1,2,3}, {4,5,6}, {7,8,9} };
+
+nMat[[1][0]]                                // this will return 4
+                                            // first [] accesses the first dimension, then second [] accesses the second
+```
+All other operations are the same like arrays.
+
+### Maps
+Accesing maps is donw by using the key within square-bracket-enclosed:
+```
+var someMap: map[str, int] = { {"prolog", 1}, {"lisp", 2}, {"c", 3} }
+someMap["lisp"]                             // will return 2
+```
+### Axioms
+Accesing axioms is more or less like accessing maps, but more verbose and matching through **backtracing**, and the return is always a vector of elements (empty if no elements are found):
+```
+var parent: axi[str, str] = { {"albert","bob"}, {"alice","bob"}, {"bob","carl"}, {"bob","tom"} };
+
+parent["albert",*]                          // this will return strng vector: {"bob"}
+parent["bob",*]                             // this will return strng vector: {"carl","tom"}
+
+parent[*,_]                                 // this will match to {"albert", "alice", "bob"}
+```
+
+Matching can be with a vector too:
+```
+var parent: axi[str, str] = { {"albert","bob"}, {"alice","bob"}, {"bob","carl"}, {"bob","tom"}, {"maggie","bill"} };
+var aVec: vec[str] = { "tom", "bob" };
+
+parent[*,aVec]                              // will match all possible values that have "tom" ot "bob" as second element
+                                            // in this case will be a strng vector: {"albert", "alice", "bob"}
+```
+
+a more complex matching:
+```
+var class: axi;
+class.add({"cs340","spring",{"tue","thur"},{12,13},"john","coor_5"})
+class.add({"cs340","winter",{"tue","fri"},{12,13},"mike","coor_5"})
+class.add({"cs340",winter,{"wed","fri"},{15,16},"bruce","coor_3"})
+class.add({"cs101",winter,{"mon","wed"},{10,12},"james","coor_1"})
+class.add({"cs101",spring,{"tue","tue"},{16,18},"tom","coor_1"})
+
+var aClass = "cs340"
+class[aClass,_,[_,"fri"],_,*,_]             // this will return string vector: {"mike", bruce}
+                                            // it matches everything that has aClass ad "fri" within
+                                            // and ignore ones with meh symbol
+```
+
+### Avaliability
+To check if an element exists, we add `:` before accessing with []. Thus this will return `true` if element exists.
+```
+var val: vec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+val:[5]                                     // returns true
+val:[15]                                    // returns false
+
+
+var likes: axi[str, str] = { {"bob","alice"} , {"alice","bob"}, {"dan","sally"} };
+
+likes["bob","alice"]:                       // will return true
+likes["sally","dan"]:                       // will return false
+```
+
+### In-Place assignment
+One of the features that is very important in arrays is that they can assign variables immediately:
+```
+var val: vec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+var even: vec = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20}
+val[even => Y]                              // this equals to {2, 4, 6, 8, 10} and same time assign to Y
+.echo(Y)                                    // will print {2, 4, 6, 8, 10}
+```
+This dows not look very much interesting here, you can just as easy assign the whole filtered array to a variable, but it gets interesting for axioms:
+```
+var parent: axi[str, str] = { {"albert","bob"}, {"alice","bob"}, {"bob","carl"}, {"bob","tom"}, {"maggie","bill"} };
+
+parent:[* => Y,"bob"]                       // this one returns true if we find a parent of "bob"
+                                            // same time it assigns parent to a string vector `Y`
 ```
 
 
